@@ -1,0 +1,36 @@
+# Supply-chain hardening. See "Supply-chain security" in README.md.
+
+# Only install versions that have been public for at least 7 days. Most malicious
+# releases are detected and pulled within hours to days.
+minimumReleaseAge: 10080
+# Fail instead of silently falling back to a different version.
+minimumReleaseAgeStrict: true
+
+# Fail if a package's publishing trust drops below that of its earlier releases
+# (e.g. a version published without provenance after provenance-signed ones),
+# a common sign of a hijacked maintainer account.
+trustPolicy: no-downgrade
+
+# Transitive dependencies must come from the registry, never from git or tarball URLs.
+blockExoticSubdeps: true
+
+# Dependency install scripts never run unless approved below; unreviewed ones fail the install.
+strictDepBuilds: true
+allowBuilds:
+  # Its postinstall only verifies the binary that pnpm already installs from the
+  # platform-specific optional package (@esbuild/<platform>), so it isn't needed.
+  esbuild: false
+
+# New dependencies are saved with exact versions.
+savePrefix: ''
+
+engineStrict: true
+
+# Install native binaries (rolldown, esbuild, lightningcss, Tailwind oxide, TypeScript) for
+# both macOS and Linux on arm64, in addition to the current platform. This lets one
+# node_modules be shared between a macOS host and a Linux container. Remove the extra
+# entries if you don't need that.
+supportedArchitectures:
+  os: [current, darwin, linux]
+  cpu: [current, arm64]
+  libc: [current, glibc]

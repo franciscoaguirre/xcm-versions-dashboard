@@ -1,0 +1,283 @@
+/* Theme tokens from Figma. Dark mode: add .dark to <html> (driven by prefers-color-scheme in main.tsx).
+   Never use dark: prefix for colors — semantic vars handle mode switching. */
+@import 'tailwindcss';
+
+:root {
+  --color-neutral-white: #ffffff;
+  --color-neutral-50: #fafafa;
+  --color-neutral-100: #f5f5f5;
+  --color-neutral-150: #ebebeb;
+  --color-neutral-200: #e5e5e5;
+  --color-neutral-300: #d4d4d4;
+  --color-neutral-400: #a3a3a3;
+  --color-neutral-500: #737373;
+  --color-neutral-600: #525252;
+  --color-neutral-700: #404040;
+  --color-neutral-800: #262626;
+  --color-neutral-850: #1f1f1f;
+  --color-neutral-900: #171717;
+  --color-neutral-950: #0a0a0a;
+  --color-neutral-black: #000000;
+
+  --fg-primary: var(--color-neutral-950);
+  --fg-primary-inverted: var(--color-neutral-100);
+  --fg-secondary: var(--color-neutral-600);
+  --fg-secondary-hover: var(--color-neutral-black);
+  --fg-tertiary: var(--color-neutral-500);
+  --fg-link: #2563eb;
+  --fg-link-hover: #3b82f6;
+  --fg-error: #dc2626;
+  --fg-warning: #d97706;
+  --fg-success: #16a34a;
+
+  /* Syntax highlighting in the guides' code examples (not part of the design system's tokens). */
+  --code-keyword: #7c3aed;
+  --code-title: #0369a1;
+  --code-literal: #be185d;
+  --code-comment: var(--color-neutral-500);
+
+  --bg-surface-main: var(--color-neutral-50);
+  --bg-surface-container: var(--color-neutral-white);
+  --bg-surface-nested: var(--color-neutral-50);
+  --bg-selection-container-hover: var(--color-neutral-50);
+  --bg-selection-container-active: var(--color-neutral-100);
+  --bg-action-primary: var(--color-neutral-black);
+  --bg-action-primary-hover: var(--color-neutral-850);
+  --bg-action-secondary: var(--color-neutral-100);
+  --bg-action-secondary-hover: var(--color-neutral-150);
+
+  --border-default: var(--color-neutral-100);
+  --border-divider: var(--color-neutral-100);
+  --border-divider-tint: var(--color-neutral-150);
+
+  --focus-ring: #000000;
+
+  --shadow-1: 0 4px 24px -4px rgba(0, 0, 0, 0.16);
+
+  --radius-container: 16px;
+  --radius-nested: 12px;
+  --radius-small: 8px;
+}
+
+.dark {
+  /* Dark native controls, such as the scrollbars of code examples. */
+  color-scheme: dark;
+  --fg-primary: var(--color-neutral-100);
+  --fg-primary-inverted: var(--color-neutral-950);
+  --fg-secondary: var(--color-neutral-400);
+  --fg-secondary-hover: var(--color-neutral-150);
+  /* TODO: needs semantic token — the design system's dark --fg-tertiary (neutral-600) is
+     too faint for the small table text here, so neutral-500 is used instead. */
+  --fg-tertiary: var(--color-neutral-500);
+  --fg-link: #3b82f6;
+  --fg-link-hover: #60a5fa;
+  --fg-error: #ef4444;
+  --fg-warning: #f59e0b;
+  --fg-success: #22c55e;
+
+  --code-keyword: #a78bfa;
+  --code-title: #7dd3fc;
+  --code-literal: #f9a8d4;
+  --code-comment: var(--color-neutral-400);
+
+  --bg-surface-main: var(--color-neutral-950);
+  --bg-surface-container: var(--color-neutral-900);
+  --bg-surface-nested: var(--color-neutral-850);
+  --bg-selection-container-hover: var(--color-neutral-850);
+  --bg-selection-container-active: var(--color-neutral-800);
+  --bg-action-primary: var(--color-neutral-150);
+  --bg-action-primary-hover: var(--color-neutral-200);
+  --bg-action-secondary: var(--color-neutral-800);
+  --bg-action-secondary-hover: var(--color-neutral-500);
+
+  --border-default: var(--color-neutral-800);
+  --border-divider: var(--color-neutral-800);
+  --border-divider-tint: var(--color-neutral-700);
+
+  --focus-ring: #ffffff;
+
+  --shadow-1: 0 4px 24px -4px rgba(0, 0, 0, 0.24);
+}
+
+@theme inline {
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-display: 'DM Serif Display', serif;
+
+  --color-primary: var(--fg-primary);
+  --color-primary-inverted: var(--fg-primary-inverted);
+  --color-secondary: var(--fg-secondary);
+  --color-secondary-hover: var(--fg-secondary-hover);
+  --color-tertiary: var(--fg-tertiary);
+  --color-link: var(--fg-link);
+  --color-link-hover: var(--fg-link-hover);
+  --color-error: var(--fg-error);
+  --color-warning: var(--fg-warning);
+  --color-success: var(--fg-success);
+
+  --color-surface-main: var(--bg-surface-main);
+  --color-surface-container: var(--bg-surface-container);
+  --color-surface-nested: var(--bg-surface-nested);
+  --color-selection-container-hover: var(--bg-selection-container-hover);
+  --color-selection-container-active: var(--bg-selection-container-active);
+  --color-action-primary: var(--bg-action-primary);
+  --color-action-primary-hover: var(--bg-action-primary-hover);
+  --color-action-secondary: var(--bg-action-secondary);
+  --color-action-secondary-hover: var(--bg-action-secondary-hover);
+
+  --color-divider: var(--border-divider);
+  --color-divider-tint: var(--border-divider-tint);
+
+  --shadow-1: var(--shadow-1);
+
+  --radius-container: var(--radius-container);
+  --radius-nested: var(--radius-nested);
+  --radius-small: var(--radius-small);
+}
+
+@layer base {
+  *,
+  ::before,
+  ::after {
+    border-color: var(--border-default);
+  }
+}
+
+*:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+  box-shadow: none;
+}
+
+/* Migration guides rendered from docs/*.md (GuidePage). */
+.guide {
+  color: var(--fg-primary);
+  line-height: 1.65;
+}
+.guide > * + * {
+  margin-top: 1rem;
+}
+.guide h1 {
+  font-family: var(--font-display);
+  font-size: 2.25rem;
+  font-weight: 400;
+  line-height: 1.25;
+}
+.guide h2,
+.guide h3 {
+  font-weight: 600;
+  line-height: 1.25;
+  scroll-margin-top: 1.5rem;
+}
+.guide h2 {
+  font-size: 1.375rem;
+  margin-top: 2.5rem;
+}
+.guide h3 {
+  font-size: 1.125rem;
+  margin-top: 2rem;
+}
+.guide a {
+  color: var(--fg-link);
+  transition: color 150ms;
+}
+.guide a:hover {
+  color: var(--fg-link-hover);
+}
+.guide ul,
+.guide ol {
+  padding-left: 1.5rem;
+}
+.guide ul {
+  list-style: disc;
+}
+.guide ol {
+  list-style: decimal;
+}
+.guide li + li {
+  margin-top: 0.375rem;
+}
+.guide code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.875em;
+  background: var(--bg-surface-nested);
+  border-radius: 4px;
+  padding: 0.125rem 0.3rem;
+}
+.guide pre {
+  background: var(--bg-surface-nested);
+  border-radius: var(--radius-nested);
+  padding: 1rem 1.25rem;
+  overflow-x: auto;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+.guide pre code {
+  background: none;
+  padding: 0;
+  font-size: inherit;
+}
+/* Code examples with one tab per client library (rendered by vite.config.ts). */
+.guide [role='tablist'] {
+  display: flex;
+  gap: 0.25rem;
+  border-bottom: 1px solid var(--border-divider);
+}
+.guide [role='tab'] {
+  padding: 0.5rem 0.75rem;
+  margin-bottom: -1px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--fg-secondary);
+  border-bottom: 2px solid transparent;
+  border-radius: var(--radius-small) var(--radius-small) 0 0;
+  cursor: pointer;
+  transition: color 150ms, background-color 150ms;
+}
+.guide [role='tab']:hover {
+  color: var(--fg-primary);
+  background: var(--bg-selection-container-hover);
+}
+.guide [role='tab'][aria-selected='true'] {
+  color: var(--fg-primary);
+  border-bottom-color: var(--fg-primary);
+}
+.guide .code-tabs pre {
+  margin-top: 0.75rem;
+}
+/* Highlighting classes added by highlight.js at build time. Properties and variables stay in the text color. */
+.guide .hljs-keyword {
+  color: var(--code-keyword);
+}
+.guide .hljs-title,
+.guide .hljs-built_in {
+  color: var(--code-title);
+}
+.guide .hljs-string,
+.guide .hljs-number,
+.guide .hljs-literal {
+  color: var(--code-literal);
+}
+.guide .hljs-comment {
+  color: var(--code-comment);
+  font-style: italic;
+}
+.guide table {
+  display: block;
+  overflow-x: auto;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+.guide th,
+.guide td {
+  text-align: left;
+  vertical-align: top;
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid var(--border-divider);
+}
+.guide th {
+  color: var(--fg-secondary);
+  font-weight: 500;
+}
+.guide strong {
+  font-weight: 600;
+}

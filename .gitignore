@@ -1,0 +1,20 @@
+# Dependencies and build output
+node_modules/
+dist/
+coverage/
+
+# Dashboard snapshot written by `pnpm export-dashboard`
+exports/
+
+# Local environment (e.g. GITHUB_TOKEN for `pnpm fetch-sdk`)
+.env*
+!.env.example
+
+# Logs and OS files
+*.log
+.DS_Store
+
+# AI assistant per-developer state (shared commands, skills and agents can be committed)
+.claude/sessions/
+.claude/cache/
+.claude/settings.local.json

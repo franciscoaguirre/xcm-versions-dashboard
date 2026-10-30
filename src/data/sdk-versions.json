@@ -1,0 +1,757 @@
+{
+  "polkadot:relay": {
+    "repo": "polkadot-fellows/runtimes",
+    "lockPath": "Cargo.lock",
+    "commit": "ce6db29838fa8536c12bffb478f3b93501c9b384",
+    "commitDate": null,
+    "runtimeVerified": true,
+    "release": "stable2606-2",
+    "oldestRelease": "stable2606-2",
+    "crateVersions": [
+      "24.1.0"
+    ],
+    "fetchedAt": "2026-10-29T15:29:42.166Z"
+  },
+  "polkadot:1000": {
+    "repo": "polkadot-fellows/runtimes",
+    "lockPath": "Cargo.lock",
+    "commit": "ce6db29838fa8536c12bffb478f3b93501c9b384",
+    "commitDate": null,
+    "runtimeVerified": true,
+    "release": "stable2606-2",
+    "oldestRelease": "stable2606-2",
+    "crateVersions": [
+      "24.1.0"
+    ],
+    "fetchedAt": "2026-10-29T15:29:42.166Z"
+  },
+  "polkadot:1001": {
+    "repo": "polkadot-fellows/runtimes",
+    "lockPath": "Cargo.lock",
+    "commit": "ce6db29838fa8536c12bffb478f3b93501c9b384",
+    "commitDate": null,
+    "runtimeVerified": true,
+    "release": "stable2606-2",
+    "oldestRelease": "stable2606-2",
+    "crateVersions": [
+      "24.1.0"
+    ],
+    "fetchedAt": "2026-10-29T15:29:42.166Z"
+  },
+  "polkadot:1002": {
+    "repo": "polkadot-fellows/runtimes",
+    "lockPath": "Cargo.lock",
+    "commit": "ce6db29838fa8536c12bffb478f3b93501c9b384",
+    "commitDate": null,
+    "runtimeVerified": true,
+    "release": "stable2606-2",
+    "oldestRelease": "stable2606-2",
+    "crateVersions": [
+      "24.1.0"
+    ],
+    "fetchedAt": "2026-10-29T15:29:42.166Z"
+  },
+  "polkadot:1004": {
+    "repo": "polkadot-fellows/runtimes",
+    "lockPath": "Cargo.lock",
+    "commit": "ce6db29838fa8536c12bffb478f3b93501c9b384",
+    "commitDate": null,
+    "runtimeVerified": true,
+    "release": "stable2606-2",
+    "oldestRelease": "stable2606-2",
+    "crateVersions": [
+      "24.1.0"
+    ],
+    "fetchedAt": "2026-10-29T15:29:42.166Z"
+  },
+  "polkadot:1005": {
+    "repo": "polkadot-fellows/runtimes",
+    "lockPath": "Cargo.lock",
+    "commit": "ce6db29838fa8536c12bffb478f3b93501c9b384",
+    "commitDate": null,
+    "runtimeVerified": true,
+    "release": "stable2606-2",
+    "oldestRelease": "stable2606-2",
+    "crateVersions": [
+      "24.1.0"
+    ],
+    "fetchedAt": "2026-10-29T15:29:42.167Z"
+  },
+  "polkadot:1010": {
+    "repo": "polkadot-fellows/runtimes",
+    "lockPath": "Cargo.lock",
+    "commit": "ce6db29838fa8536c12bffb478f3b93501c9b384",
+    "commitDate": null,
+    "runtimeVerified": true,
+    "release": "stable2606-2",
+    "oldestRelease": "stable2606-2",
+    "crateVersions": [
+      "24.1.0"
+    ],
+    "fetchedAt": "2026-10-29T15:29:42.167Z"
+  },
+  "polkadot:2000": {
+    "repo": "AcalaNetwork/Acala",
+    "lockPath": "Cargo.lock",
+    "commit": "cde2abf753cdfbb67e8129b8c0672d5c15444aa1",
+    "commitDate": null,
+    "runtimeVerified": true,
+    "release": "stable2506-11",
+    "oldestRelease": "stable2506-11",
+    "crateVersions": [
+      "17.0.1"
+    ],
+    "fetchedAt": "2026-10-29T15:29:37.477Z"
+  },
+  "polkadot:2002": {
+    "repo": "clover-network/clover",
+    "lockPath": "Cargo.lock",
+    "commit": "26607a50d722eae9882304b3de2f1d512734221f",
+    "commitDate": null,
+    "runtimeVerified": true,
+    "release": null,
+    "oldestRelease": null,
+    "crateVersions": [],
+    "fetchedAt": "2026-10-29T15:29:42.752Z"
+  },
+  "polkadot:2006": {
+    "repo": "AstarNetwork/Astar",
+    "lockPath": "Cargo.lock",
+    "commit": "d2a56e2cab722db92c4345d717219083b13aeb41",
+    "commitDate": null,
+    "runtimeVerified": true,
+    "release": "stable2512",
+    "oldestRelease": "stable2512",
+    "crateVersions": [
+      "21.0.2"
+    ],
+    "fetchedAt": "2026-10-29T15:29:47.798Z"
+  },
+  "polkadot:2013": {
+    "repo": "litentry/heima",
+    "lockPath": "parachain/Cargo.lock",
+    "commit": "c380c698ff885a5bcae74b48c9c6716672e7893b",
+    "commitDate": null,
+    "runtimeVerified": true,
+    "release": "stable2512",
+    "oldestRelease": "stable2512",
+    "crateVersions": [
+      "21.0.2"
+    ],
+    "fetchedAt": "2026-10-29T15:29:47.098Z"
+  },
+  "polkadot:2019": {
+    "repo": "ComposableFi/composable",
+    "lockPath": "code/Cargo.lock",
+    "commit": "7eb88753efa701f7d7dc9f4534c7b0c55a4923d2",
+    "commitDate": null,
+    "runtimeVerified": true,
+    "release": "v0.9.43",
+    "oldestRelease": "v0.9.43",
+    "crateVersions": [
+      "0.9.43"
+    ],
+    "fetchedAt": "2026-10-29T15:29:48.604Z"
+  },
+  "polkadot:2025": {
+    "repo": "sora-xor/sora2-parachain",
+    "lockPath": "Cargo.lock",
+    "commit": "e9b2fb143d39aadbfa9968223a23fb033234090a",
+    "commitDate": null,
+    "runtimeVerified": true,
+    "release": "v0.9.38",
+    "oldestRelease": "v0.9.38",
+    "crateVersions": [
+      "0.9.38"
+    ],
+    "fetchedAt": "2026-10-29T15:29:49.249Z"
+  },
+  "polkadot:2026": {
+    "repo": "NodleCode/chain",
+    "lockPath": "Cargo.lock",
+    "commit": "9196935139b73c3702cb316ed9429d5623dfe5ab",
+    "commitDate": null,
+    "runtimeVerified": true,
+    "release": "v1.13.0",
+    "oldestRelease": "v1.13.0",
+    "crateVersions": [
+      "7.0.0"
+    ],
+    "fetchedAt": "2026-10-29T15:29:45.495Z"
+  },
+  "polkadot:2030": {
+    "repo": "bifrost-io/bifrost-node",
+    "lockPath": "Cargo.lock",
+    "commit": "f2be094e4531cecb8c102fe0513635ba4fd4487c",
+    "commitDate": null,
+    "runtimeVerified": false,
+    "release": "stable2412",
+    "oldestRelease": "stable2412",
+    "crateVersions": [
+      "15.1.0"
+    ],
+    "note": "Node only (omni-node); the runtime source does not appear to be public",
+    "fetchedAt": "2026-10-29T15:29:44.818Z"
+  },
+  "polkadot:2031": {
+    "repo": "centrifuge/centrifuge-chain",
+    "lockPath": "Cargo.lock",
+    "commit": "e1842d709cb099b560fe68a850a6a93a77a8bd8f",
+    "commitDate": null,
+    "runtimeVerified": true,
+    "release": "v1.7.2",
+    "oldestRelease": "v1.7.2",
+    "crateVersions": [
+      "7.0.0"
+    ],
+    "fetchedAt": "2026-10-29T15:29:46.198Z"
+  },
+  "polkadot:2032": {
+    "repo": "interlay/interbtc",
+    "lockPath": "Cargo.lock",
+    "commit": "c645294b3257d5a0e37b2613e55b90380100ea9f",
+    "commitDate": null,
+    "runtimeVerified": true,
+    "release": "v1.0.0",
+    "oldestRelease": "v1.0.0",
+    "crateVersions": [
+      "1.0.0"
+    ],
+    "fetchedAt": "2026-10-29T15:29:43.494Z"
+  },
+  "polkadot:2034": {
+    "repo": "galacticcouncil/hydration-node",
+    "lockPath": "Cargo.lock",
+    "commit": "a35840f0b19d04c14e5afd91859295840e9ce19c",
+    "commitDate": null,
+    "runtimeVerified": true,
+    "release": "stable2506-11",
+    "oldestRelease": "stable2506-11",
+    "crateVersions": [
+      "17.0.1"
+    ],
+    "fetchedAt": "2026-10-29T15:29:44.214Z"
+  },
+  "polkadot:2035": {
+    "repo": "Phala-Network/khala-parachain",
+    "lockPath": "Cargo.lock",
+    "commit": "acfd39b817873c3e317d80283fd41a2aac9ba901",
+    "commitDate": null,
+    "runtimeVerified": true,
+    "release": "v1.2.0",
+    "oldestRelease": "v1.2.0",
+    "crateVersions": [
+      "1.0.0"
+    ],
+    "fetchedAt": "2026-10-29T15:29:50.031Z"
+  },
+  "polkadot:2037": {
+    "repo": "UniqueNetwork/unique-chain",
+    "lockPath": "Cargo.lock",
+    "commit": "a324120142c14a6867ef7db2cc213b72b403f62c",
+    "commitDate": null,
+    "runtimeVerified": true,
+    "release": "stable2509",
+    "oldestRelease": "stable2509",
+    "crateVersions": [
+      "19.0.0"
+    ],
+    "fetchedAt": "2026-10-29T15:29:51.378Z"
+  },
+  "polkadot:2043": {
+    "repo": "OriginTrail/neuroweb",
+    "lockPath": "Cargo.lock",
+    "commit": "3b8a6918ea1a7bce6047a020220acdbc664b4061",
+    "commitDate": null,
+    "runtimeVerified": true,
+    "release": "v1.11.0",
+    "oldestRelease": "stable2412",
+    "crateVersions": [
+      "7.0.0",
+      "7.0.0"
+    ],
+    "fetchedAt": "2026-10-29T15:29:54.295Z"
+  },
+  "polkadot:2046": {
+    "repo": "darwinia-network/darwinia",
+    "lockPath": "Cargo.lock",
+    "commit": "ae480dadc643d38087e646116c45992948e07adf",
+    "commitDate": null,
+    "runtimeVerified": true,
+    "release": "stable2409",
+    "oldestRelease": "stable2409",
+    "crateVersions": [
+      "14.2.2"
+    ],
+    "fetchedAt": "2026-10-29T15:29:50.707Z"
+  },
+  "polkadot:2051": {
+    "repo": "ajuna-network/ajuna-parachain",
+    "lockPath": "Cargo.lock",
+    "commit": "a795fc99c724fd1e21e7779234b19d85ea9db06a",
+    "commitDate": null,
+    "runtimeVerified": true,
+    "release": "stable2506",
+    "oldestRelease": "stable2506",
+    "crateVersions": [
+      "17.0.0"
+    ],
+    "fetchedAt": "2026-10-29T15:29:52.268Z"
+  },
+  "polkadot:2056": {
+    "repo": "Aventus-Network-Services/avn-parachain",
+    "lockPath": "Cargo.lock",
+    "commit": "c7aeb919d56cae780c56a55df728750d6f3916f3",
+    "commitDate": null,
+    "runtimeVerified": true,
+    "release": "stable2606-2",
+    "oldestRelease": "stable2606-2",
+    "crateVersions": [
+      "24.1.0"
+    ],
+    "fetchedAt": "2026-10-29T15:29:52.934Z"
+  },
+  "polkadot:2086": {
+    "repo": "KILTprotocol/kilt-node",
+    "lockPath": "Cargo.lock",
+    "commit": "2a3bd554a54c62adc7ca8fc31521803aa4f46219",
+    "commitDate": null,
+    "runtimeVerified": true,
+    "release": "stable2409",
+    "oldestRelease": "stable2409",
+    "crateVersions": [
+      "14.2.2"
+    ],
+    "fetchedAt": "2026-10-29T15:29:53.646Z"
+  },
+  "polkadot:2091": {
+    "repo": "frequency-chain/frequency",
+    "lockPath": "Cargo.lock",
+    "commit": "fe130b09d2f2f4a2607648c1d6528347b6ef43ea",
+    "commitDate": null,
+    "runtimeVerified": true,
+    "release": "stable2506-2",
+    "oldestRelease": "stable2506-2",
+    "crateVersions": [
+      "17.0.0"
+    ],
+    "fetchedAt": "2026-10-29T15:29:55.047Z"
+  },
+  "polkadot:2092": {
+    "repo": "zeitgeistpm/zeitgeist",
+    "lockPath": "Cargo.lock",
+    "commit": "39ad8d60aa2f7af0a465d58c5e87dcc509602df5",
+    "commitDate": null,
+    "runtimeVerified": true,
+    "release": "stable2409",
+    "oldestRelease": "stable2409",
+    "crateVersions": [
+      "14.2.0"
+    ],
+    "fetchedAt": "2026-10-29T15:29:55.728Z"
+  },
+  "polkadot:2094": {
+    "repo": "pendulum-chain/pendulum",
+    "lockPath": "Cargo.lock",
+    "commit": "e9d4a875606fea72a910361b343b1c11ec553a87",
+    "commitDate": null,
+    "runtimeVerified": true,
+    "release": "v1.1.0",
+    "oldestRelease": "v1.1.0",
+    "crateVersions": [
+      "1.0.0"
+    ],
+    "fetchedAt": "2026-10-29T15:29:57.089Z"
+  },
+  "polkadot:2104": {
+    "repo": "Manta-Network/Manta",
+    "lockPath": "Cargo.lock",
+    "commit": "993030599ecd06b578946adab4f4172d098643ad",
+    "commitDate": null,
+    "runtimeVerified": true,
+    "release": "v1.6.0",
+    "oldestRelease": "v1.6.0",
+    "crateVersions": [
+      "1.0.0"
+    ],
+    "fetchedAt": "2026-10-29T15:29:56.410Z"
+  },
+  "polkadot:3338": {
+    "repo": "peaqnetwork/peaq-network-node",
+    "lockPath": "Cargo.lock",
+    "commit": "9c18928975d96780a9fa1431e80589732a6388a8",
+    "commitDate": null,
+    "runtimeVerified": true,
+    "release": "stable2503",
+    "oldestRelease": "stable2503",
+    "crateVersions": [
+      "16.1.0"
+    ],
+    "fetchedAt": "2026-10-29T15:30:05.878Z"
+  },
+  "polkadot:3367": {
+    "repo": "polytope-labs/hyperbridge",
+    "lockPath": "Cargo.lock",
+    "commit": "921d0c86dab2581558cf874f3147e0362995859d",
+    "commitDate": null,
+    "runtimeVerified": true,
+    "release": "stable2606",
+    "oldestRelease": "stable2606",
+    "crateVersions": [
+      "24.0.0"
+    ],
+    "fetchedAt": "2026-10-29T15:30:12.837Z"
+  },
+  "polkadot:3369": {
+    "repo": "paritytech/project-mythical",
+    "lockPath": "Cargo.lock",
+    "commit": "e1da8f2a64c1e2ecd2f6ee72c9e81d3a76732fc8",
+    "commitDate": null,
+    "runtimeVerified": true,
+    "release": "stable2503-15",
+    "oldestRelease": "stable2503-15",
+    "crateVersions": [
+      "16.2.0"
+    ],
+    "fetchedAt": "2026-10-29T15:30:07.635Z"
+  },
+  "polkadot:3370": {
+    "repo": "freeverseio/laos",
+    "lockPath": "Cargo.lock",
+    "commit": "8e5fec78e0c937b7130d32ea4eef8d31efd209c7",
+    "commitDate": null,
+    "runtimeVerified": true,
+    "release": "stable2409-10",
+    "oldestRelease": "stable2409-10",
+    "crateVersions": [
+      "14.2.2"
+    ],
+    "fetchedAt": "2026-10-29T15:30:14.229Z"
+  },
+  "polkadot:3388": {
+    "repo": "airalab/robonomics",
+    "lockPath": "Cargo.lock",
+    "commit": "f06422814e8911047594ecbd31692df3cf652fd5",
+    "commitDate": null,
+    "runtimeVerified": true,
+    "release": "stable2609",
+    "oldestRelease": "stable2609",
+    "crateVersions": [
+      "25.0.0"
+    ],
+    "fetchedAt": "2026-10-29T15:30:10.419Z"
+  },
+  "polkadot:3396": {
+    "repo": "Acurast/acurast-substrate",
+    "lockPath": "Cargo.lock",
+    "commit": "37514f74b0c3f844334079637ade6a3b78f4641b",
+    "commitDate": null,
+    "runtimeVerified": true,
+    "release": "stable2606",
+    "oldestRelease": "stable2606",
+    "crateVersions": [
+      "24.0.0"
+    ],
+    "fetchedAt": "2026-10-29T15:30:18.136Z"
+  },
+  "polkadot:3417": {
+    "repo": "Xode-Chain/xode-blockchain",
+    "lockPath": "Cargo.lock",
+    "commit": "f6d67765e1732d584f9f4c807a7cca59fa40d2fa",
+    "commitDate": null,
+    "runtimeVerified": true,
+    "release": "stable2512",
+    "oldestRelease": "stable2512",
+    "crateVersions": [
+      "21.0.0"
+    ],
+    "fetchedAt": "2026-10-29T15:30:13.403Z"
+  },
+  "kusama:relay": {
+    "repo": "polkadot-fellows/runtimes",
+    "lockPath": "Cargo.lock",
+    "commit": "ce6db29838fa8536c12bffb478f3b93501c9b384",
+    "commitDate": null,
+    "runtimeVerified": true,
+    "release": "stable2606-2",
+    "oldestRelease": "stable2606-2",
+    "crateVersions": [
+      "24.1.0"
+    ],
+    "fetchedAt": "2026-10-29T15:29:57.746Z"
+  },
+  "kusama:1000": {
+    "repo": "polkadot-fellows/runtimes",
+    "lockPath": "Cargo.lock",
+    "commit": "ce6db29838fa8536c12bffb478f3b93501c9b384",
+    "commitDate": null,
+    "runtimeVerified": true,
+    "release": "stable2606-2",
+    "oldestRelease": "stable2606-2",
+    "crateVersions": [
+      "24.1.0"
+    ],
+    "fetchedAt": "2026-10-29T15:29:58.444Z"
+  },
+  "kusama:1001": {
+    "repo": "polkadot-fellows/runtimes",
+    "lockPath": "Cargo.lock",
+    "commit": "ce6db29838fa8536c12bffb478f3b93501c9b384",
+    "commitDate": null,
+    "runtimeVerified": true,
+    "release": "stable2606-2",
+    "oldestRelease": "stable2606-2",
+    "crateVersions": [
+      "24.1.0"
+    ],
+    "fetchedAt": "2026-10-29T15:29:59.116Z"
+  },
+  "kusama:1002": {
+    "repo": "polkadot-fellows/runtimes",
+    "lockPath": "Cargo.lock",
+    "commit": "ce6db29838fa8536c12bffb478f3b93501c9b384",
+    "commitDate": null,
+    "runtimeVerified": true,
+    "release": "stable2606-2",
+    "oldestRelease": "stable2606-2",
+    "crateVersions": [
+      "24.1.0"
+    ],
+    "fetchedAt": "2026-10-29T15:30:00.078Z"
+  },
+  "kusama:1004": {
+    "repo": "polkadot-fellows/runtimes",
+    "lockPath": "Cargo.lock",
+    "commit": "ce6db29838fa8536c12bffb478f3b93501c9b384",
+    "commitDate": null,
+    "runtimeVerified": true,
+    "release": "stable2606-2",
+    "oldestRelease": "stable2606-2",
+    "crateVersions": [
+      "24.1.0"
+    ],
+    "fetchedAt": "2026-10-29T15:30:00.738Z"
+  },
+  "kusama:1005": {
+    "repo": "polkadot-fellows/runtimes",
+    "lockPath": "Cargo.lock",
+    "commit": "ce6db29838fa8536c12bffb478f3b93501c9b384",
+    "commitDate": null,
+    "runtimeVerified": true,
+    "release": "stable2606-2",
+    "oldestRelease": "stable2606-2",
+    "crateVersions": [
+      "24.1.0"
+    ],
+    "fetchedAt": "2026-10-29T15:30:02.017Z"
+  },
+  "kusama:2000": {
+    "repo": "AcalaNetwork/Acala",
+    "lockPath": "Cargo.lock",
+    "commit": "cde2abf753cdfbb67e8129b8c0672d5c15444aa1",
+    "commitDate": null,
+    "runtimeVerified": true,
+    "release": "stable2506-11",
+    "oldestRelease": "stable2506-11",
+    "crateVersions": [
+      "17.0.1"
+    ],
+    "fetchedAt": "2026-10-29T15:30:03.181Z"
+  },
+  "kusama:2001": {
+    "repo": "bifrost-io/bifrost-node",
+    "lockPath": "Cargo.lock",
+    "commit": "f2be094e4531cecb8c102fe0513635ba4fd4487c",
+    "commitDate": null,
+    "runtimeVerified": false,
+    "release": "stable2412",
+    "oldestRelease": "stable2412",
+    "crateVersions": [
+      "15.1.0"
+    ],
+    "note": "Node only (omni-node); the runtime source does not appear to be public",
+    "fetchedAt": "2026-10-29T15:30:03.826Z"
+  },
+  "kusama:2007": {
+    "repo": "AstarNetwork/Astar",
+    "lockPath": "Cargo.lock",
+    "commit": "d2a56e2cab722db92c4345d717219083b13aeb41",
+    "commitDate": null,
+    "runtimeVerified": true,
+    "release": "stable2512",
+    "oldestRelease": "stable2512",
+    "crateVersions": [
+      "21.0.2"
+    ],
+    "fetchedAt": "2026-10-29T15:30:04.576Z"
+  },
+  "kusama:2011": {
+    "repo": "sora-xor/sora2-parachain",
+    "lockPath": "Cargo.lock",
+    "commit": "e9b2fb143d39aadbfa9968223a23fb033234090a",
+    "commitDate": null,
+    "runtimeVerified": true,
+    "release": "v0.9.38",
+    "oldestRelease": "v0.9.38",
+    "crateVersions": [
+      "0.9.38"
+    ],
+    "fetchedAt": "2026-10-29T15:30:05.238Z"
+  },
+  "kusama:2048": {
+    "repo": "airalab/robonomics",
+    "lockPath": "Cargo.lock",
+    "commit": "f06422814e8911047594ecbd31692df3cf652fd5",
+    "commitDate": null,
+    "runtimeVerified": true,
+    "release": "stable2609",
+    "oldestRelease": "stable2609",
+    "crateVersions": [
+      "25.0.0"
+    ],
+    "fetchedAt": "2026-10-29T15:30:10.420Z"
+  },
+  "kusama:2088": {
+    "repo": "centrifuge/centrifuge-chain",
+    "lockPath": "Cargo.lock",
+    "commit": "e1842d709cb099b560fe68a850a6a93a77a8bd8f",
+    "commitDate": null,
+    "runtimeVerified": true,
+    "release": "v1.7.2",
+    "oldestRelease": "v1.7.2",
+    "crateVersions": [
+      "7.0.0"
+    ],
+    "fetchedAt": "2026-10-29T15:30:06.979Z"
+  },
+  "kusama:2090": {
+    "repo": "galacticcouncil/Basilisk-node",
+    "lockPath": "Cargo.lock",
+    "commit": "47e2897ee0eb4ac9ffb755dd853585cc64bdebbb",
+    "commitDate": null,
+    "runtimeVerified": true,
+    "release": "stable2506-11",
+    "oldestRelease": "stable2506-11",
+    "crateVersions": [
+      "17.0.1"
+    ],
+    "fetchedAt": "2026-10-29T15:30:14.997Z"
+  },
+  "kusama:2092": {
+    "repo": "interlay/interbtc",
+    "lockPath": "Cargo.lock",
+    "commit": "c645294b3257d5a0e37b2613e55b90380100ea9f",
+    "commitDate": null,
+    "runtimeVerified": true,
+    "release": "v1.0.0",
+    "oldestRelease": "v1.0.0",
+    "crateVersions": [
+      "1.0.0"
+    ],
+    "fetchedAt": "2026-10-29T15:30:08.328Z"
+  },
+  "kusama:2095": {
+    "repo": "UniqueNetwork/unique-chain",
+    "lockPath": "Cargo.lock",
+    "commit": "a324120142c14a6867ef7db2cc213b72b403f62c",
+    "commitDate": null,
+    "runtimeVerified": true,
+    "release": "stable2509",
+    "oldestRelease": "stable2509",
+    "crateVersions": [
+      "19.0.0"
+    ],
+    "fetchedAt": "2026-10-29T15:30:09.019Z"
+  },
+  "kusama:2113": {
+    "repo": "kabocha-network/kabocha-parachain",
+    "lockPath": "Cargo.lock",
+    "commit": "332742830f40189934ea3d490a3b7a351d16b177",
+    "commitDate": null,
+    "runtimeVerified": true,
+    "release": "v0.9.28",
+    "oldestRelease": "v0.9.28",
+    "crateVersions": [
+      "0.9.28"
+    ],
+    "fetchedAt": "2026-10-29T15:30:16.206Z"
+  },
+  "kusama:2124": {
+    "repo": "pendulum-chain/pendulum",
+    "lockPath": "Cargo.lock",
+    "commit": "e9d4a875606fea72a910361b343b1c11ec553a87",
+    "commitDate": null,
+    "runtimeVerified": true,
+    "release": "v1.1.0",
+    "oldestRelease": "v1.1.0",
+    "crateVersions": [
+      "1.0.0"
+    ],
+    "fetchedAt": "2026-10-29T15:30:11.163Z"
+  },
+  "kusama:2239": {
+    "repo": "Acurast/acurast-substrate",
+    "lockPath": "Cargo.lock",
+    "commit": "37514f74b0c3f844334079637ade6a3b78f4641b",
+    "commitDate": null,
+    "runtimeVerified": true,
+    "release": "stable2606",
+    "oldestRelease": "stable2606",
+    "crateVersions": [
+      "24.0.0"
+    ],
+    "fetchedAt": "2026-10-29T15:30:18.136Z"
+  },
+  "kusama:2241": {
+    "repo": "peaqnetwork/peaq-network-node",
+    "lockPath": "Cargo.lock",
+    "commit": "9c18928975d96780a9fa1431e80589732a6388a8",
+    "commitDate": null,
+    "runtimeVerified": false,
+    "release": "stable2503",
+    "oldestRelease": "stable2503",
+    "crateVersions": [
+      "16.1.0"
+    ],
+    "note": "The Krest runtime is no longer in this repository; the release shown is for peaq",
+    "fetchedAt": "2026-10-29T15:30:11.852Z"
+  },
+  "kusama:2281": {
+    "repo": "virto-network/kreivo",
+    "lockPath": "Cargo.lock",
+    "commit": "5cd5003ba2076c564ede4da0922f5efa48bce2da",
+    "commitDate": null,
+    "runtimeVerified": true,
+    "release": "stable2606-2",
+    "oldestRelease": null,
+    "crateVersions": [
+      "11.0.0",
+      "24.1.0"
+    ],
+    "fetchedAt": "2026-10-29T15:30:16.870Z"
+  },
+  "kusama:3339": {
+    "repo": "CurioTeam/curio-parachain-node",
+    "lockPath": "Cargo.lock",
+    "commit": "1086ed710282006ddeac322b359c1f7804d0e14e",
+    "commitDate": null,
+    "runtimeVerified": true,
+    "release": null,
+    "oldestRelease": null,
+    "crateVersions": [],
+    "fetchedAt": "2026-10-29T15:30:15.562Z"
+  },
+  "kusama:3422": {
+    "repo": "RegionX-Labs/RegionX-Node",
+    "lockPath": "Cargo.lock",
+    "commit": "a77de75feeb93c15f65832f80badf67118c4952b",
+    "commitDate": null,
+    "runtimeVerified": true,
+    "release": "stable2412-10",
+    "oldestRelease": "stable2412-10",
+    "crateVersions": [
+      "15.1.0"
+    ],
+    "fetchedAt": "2026-10-29T15:30:18.797Z"
+  }
+}

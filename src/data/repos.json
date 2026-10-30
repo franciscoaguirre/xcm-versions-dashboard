@@ -1,0 +1,353 @@
+{
+  "polkadot:relay": {
+    "repo": "polkadot-fellows/runtimes",
+    "lockPath": "Cargo.lock",
+    "runtimeHint": "polkadot",
+    "source": "known: system runtimes"
+  },
+  "polkadot:1000": {
+    "repo": "polkadot-fellows/runtimes",
+    "lockPath": "Cargo.lock",
+    "runtimeHint": "asset-hub-polkadot",
+    "source": "known: system runtimes"
+  },
+  "polkadot:1001": {
+    "repo": "polkadot-fellows/runtimes",
+    "lockPath": "Cargo.lock",
+    "runtimeHint": "collectives-polkadot",
+    "source": "known: system runtimes"
+  },
+  "polkadot:1002": {
+    "repo": "polkadot-fellows/runtimes",
+    "lockPath": "Cargo.lock",
+    "runtimeHint": "bridge-hub-polkadot",
+    "source": "known: system runtimes"
+  },
+  "polkadot:1004": {
+    "repo": "polkadot-fellows/runtimes",
+    "lockPath": "Cargo.lock",
+    "runtimeHint": "people-polkadot",
+    "source": "known: system runtimes"
+  },
+  "polkadot:1005": {
+    "repo": "polkadot-fellows/runtimes",
+    "lockPath": "Cargo.lock",
+    "runtimeHint": "coretime-polkadot",
+    "source": "known: system runtimes"
+  },
+  "polkadot:1010": {
+    "repo": "polkadot-fellows/runtimes",
+    "lockPath": "Cargo.lock",
+    "runtimeHint": "bulletin-polkadot",
+    "source": "known: system runtimes"
+  },
+  "polkadot:2000": {
+    "repo": "AcalaNetwork/Acala",
+    "lockPath": "Cargo.lock",
+    "runtimeHint": "acala",
+    "source": "known"
+  },
+  "polkadot:2002": {
+    "repo": "clover-network/clover",
+    "lockPath": "Cargo.lock",
+    "runtimeHint": "clover",
+    "source": "known"
+  },
+  "polkadot:2006": {
+    "repo": "AstarNetwork/Astar",
+    "lockPath": "Cargo.lock",
+    "runtimeHint": "astar",
+    "source": "known"
+  },
+  "polkadot:2013": {
+    "repo": "litentry/heima",
+    "lockPath": "parachain/Cargo.lock",
+    "runtimeHint": "heima",
+    "source": "web search"
+  },
+  "polkadot:2019": {
+    "repo": "ComposableFi/composable",
+    "lockPath": "code/Cargo.lock",
+    "runtimeHint": "composable",
+    "source": "web search"
+  },
+  "polkadot:2025": {
+    "repo": "sora-xor/sora2-parachain",
+    "lockPath": "Cargo.lock",
+    "runtimeHint": "sora",
+    "source": "known"
+  },
+  "polkadot:2026": {
+    "repo": "NodleCode/chain",
+    "lockPath": "Cargo.lock",
+    "runtimeHint": "runtime-eden",
+    "source": "known"
+  },
+  "polkadot:2030": {
+    "repo": "bifrost-io/bifrost-node",
+    "lockPath": "Cargo.lock",
+    "runtimeHint": "bifrost-polkadot",
+    "source": "raw probe",
+    "note": "Node only (omni-node); the runtime source does not appear to be public"
+  },
+  "polkadot:2031": {
+    "repo": "centrifuge/centrifuge-chain",
+    "lockPath": "Cargo.lock",
+    "runtimeHint": "centrifuge",
+    "source": "known"
+  },
+  "polkadot:2032": {
+    "repo": "interlay/interbtc",
+    "lockPath": "Cargo.lock",
+    "runtimeHint": "interlay",
+    "source": "known"
+  },
+  "polkadot:2034": {
+    "repo": "galacticcouncil/hydration-node",
+    "lockPath": "Cargo.lock",
+    "runtimeHint": "hydradx",
+    "source": "known"
+  },
+  "polkadot:2035": {
+    "repo": "Phala-Network/khala-parachain",
+    "lockPath": "Cargo.lock",
+    "runtimeHint": "phala",
+    "source": "raw probe"
+  },
+  "polkadot:2037": {
+    "repo": "UniqueNetwork/unique-chain",
+    "lockPath": "Cargo.lock",
+    "runtimeHint": "unique",
+    "source": "known"
+  },
+  "polkadot:2043": {
+    "repo": "OriginTrail/neuroweb",
+    "lockPath": "Cargo.lock",
+    "runtimeHint": "neuroweb",
+    "source": "known"
+  },
+  "polkadot:2046": {
+    "repo": "darwinia-network/darwinia",
+    "lockPath": "Cargo.lock",
+    "runtimeHint": "darwinia",
+    "source": "known"
+  },
+  "polkadot:2051": {
+    "repo": "ajuna-network/ajuna-parachain",
+    "lockPath": "Cargo.lock",
+    "runtimeHint": "ajuna",
+    "source": "raw probe"
+  },
+  "polkadot:2056": {
+    "repo": "Aventus-Network-Services/avn-parachain",
+    "lockPath": "Cargo.lock",
+    "runtimeHint": "avn",
+    "source": "raw probe"
+  },
+  "polkadot:2086": {
+    "repo": "KILTprotocol/kilt-node",
+    "lockPath": "Cargo.lock",
+    "runtimeHint": "spiritnet",
+    "source": "known"
+  },
+  "polkadot:2091": {
+    "repo": "frequency-chain/frequency",
+    "lockPath": "Cargo.lock",
+    "runtimeHint": "frequency",
+    "source": "known"
+  },
+  "polkadot:2092": {
+    "repo": "zeitgeistpm/zeitgeist",
+    "lockPath": "Cargo.lock",
+    "runtimeHint": "zeitgeist",
+    "source": "known"
+  },
+  "polkadot:2094": {
+    "repo": "pendulum-chain/pendulum",
+    "lockPath": "Cargo.lock",
+    "runtimeHint": "pendulum",
+    "source": "known"
+  },
+  "polkadot:2104": {
+    "repo": "Manta-Network/Manta",
+    "lockPath": "Cargo.lock",
+    "runtimeHint": "manta",
+    "source": "known"
+  },
+  "polkadot:3338": {
+    "repo": "peaqnetwork/peaq-network-node",
+    "lockPath": "Cargo.lock",
+    "runtimeHint": "peaq",
+    "source": "known"
+  },
+  "polkadot:3367": {
+    "repo": "polytope-labs/hyperbridge",
+    "lockPath": "Cargo.lock",
+    "runtimeHint": "nexus",
+    "source": "known"
+  },
+  "polkadot:3369": {
+    "repo": "paritytech/project-mythical",
+    "lockPath": "Cargo.lock",
+    "runtimeHint": "mainnet-runtime",
+    "source": "known"
+  },
+  "polkadot:3370": {
+    "repo": "freeverseio/laos",
+    "lockPath": "Cargo.lock",
+    "runtimeHint": "laos",
+    "source": "known"
+  },
+  "polkadot:3388": {
+    "repo": "airalab/robonomics",
+    "lockPath": "Cargo.lock",
+    "runtimeHint": "robonomics",
+    "source": "known"
+  },
+  "polkadot:3396": {
+    "repo": "Acurast/acurast-substrate",
+    "lockPath": "Cargo.lock",
+    "runtimeHint": "acurast",
+    "source": "known"
+  },
+  "polkadot:3417": {
+    "repo": "Xode-Chain/xode-blockchain",
+    "lockPath": "Cargo.lock",
+    "runtimeHint": "xode",
+    "source": "web search"
+  },
+  "kusama:relay": {
+    "repo": "polkadot-fellows/runtimes",
+    "lockPath": "Cargo.lock",
+    "runtimeHint": "kusama",
+    "source": "known: system runtimes"
+  },
+  "kusama:1000": {
+    "repo": "polkadot-fellows/runtimes",
+    "lockPath": "Cargo.lock",
+    "runtimeHint": "asset-hub-kusama",
+    "source": "known: system runtimes"
+  },
+  "kusama:1001": {
+    "repo": "polkadot-fellows/runtimes",
+    "lockPath": "Cargo.lock",
+    "runtimeHint": "encointer-kusama",
+    "source": "known: system runtimes"
+  },
+  "kusama:1002": {
+    "repo": "polkadot-fellows/runtimes",
+    "lockPath": "Cargo.lock",
+    "runtimeHint": "bridge-hub-kusama",
+    "source": "known: system runtimes"
+  },
+  "kusama:1004": {
+    "repo": "polkadot-fellows/runtimes",
+    "lockPath": "Cargo.lock",
+    "runtimeHint": "people-kusama",
+    "source": "known: system runtimes"
+  },
+  "kusama:1005": {
+    "repo": "polkadot-fellows/runtimes",
+    "lockPath": "Cargo.lock",
+    "runtimeHint": "coretime-kusama",
+    "source": "known: system runtimes"
+  },
+  "kusama:2000": {
+    "repo": "AcalaNetwork/Acala",
+    "lockPath": "Cargo.lock",
+    "runtimeHint": "karura",
+    "source": "known"
+  },
+  "kusama:2001": {
+    "repo": "bifrost-io/bifrost-node",
+    "lockPath": "Cargo.lock",
+    "runtimeHint": "bifrost",
+    "source": "raw probe",
+    "note": "Node only (omni-node); the runtime source does not appear to be public"
+  },
+  "kusama:2007": {
+    "repo": "AstarNetwork/Astar",
+    "lockPath": "Cargo.lock",
+    "runtimeHint": "shiden",
+    "source": "known"
+  },
+  "kusama:2011": {
+    "repo": "sora-xor/sora2-parachain",
+    "lockPath": "Cargo.lock",
+    "runtimeHint": "sora",
+    "source": "known"
+  },
+  "kusama:2048": {
+    "repo": "airalab/robonomics",
+    "lockPath": "Cargo.lock",
+    "runtimeHint": "robonomics",
+    "source": "known"
+  },
+  "kusama:2088": {
+    "repo": "centrifuge/centrifuge-chain",
+    "lockPath": "Cargo.lock",
+    "runtimeHint": "altair",
+    "source": "known"
+  },
+  "kusama:2090": {
+    "repo": "galacticcouncil/Basilisk-node",
+    "lockPath": "Cargo.lock",
+    "runtimeHint": "basilisk",
+    "source": "known"
+  },
+  "kusama:2092": {
+    "repo": "interlay/interbtc",
+    "lockPath": "Cargo.lock",
+    "runtimeHint": "kintsugi",
+    "source": "known"
+  },
+  "kusama:2095": {
+    "repo": "UniqueNetwork/unique-chain",
+    "lockPath": "Cargo.lock",
+    "runtimeHint": "quartz",
+    "source": "known"
+  },
+  "kusama:2113": {
+    "repo": "kabocha-network/kabocha-parachain",
+    "lockPath": "Cargo.lock",
+    "runtimeHint": "kabocha",
+    "source": "raw probe"
+  },
+  "kusama:2124": {
+    "repo": "pendulum-chain/pendulum",
+    "lockPath": "Cargo.lock",
+    "runtimeHint": "amplitude",
+    "source": "known"
+  },
+  "kusama:2239": {
+    "repo": "Acurast/acurast-substrate",
+    "lockPath": "Cargo.lock",
+    "runtimeHint": "acurast",
+    "source": "known"
+  },
+  "kusama:2241": {
+    "repo": "peaqnetwork/peaq-network-node",
+    "lockPath": "Cargo.lock",
+    "runtimeHint": "krest",
+    "source": "known",
+    "note": "The Krest runtime is no longer in this repository; the release shown is for peaq"
+  },
+  "kusama:2281": {
+    "repo": "virto-network/kreivo",
+    "lockPath": "Cargo.lock",
+    "runtimeHint": "kreivo",
+    "source": "known"
+  },
+  "kusama:3339": {
+    "repo": "CurioTeam/curio-parachain-node",
+    "lockPath": "Cargo.lock",
+    "runtimeHint": "node-runtime",
+    "source": "raw probe"
+  },
+  "kusama:3422": {
+    "repo": "RegionX-Labs/RegionX-Node",
+    "lockPath": "Cargo.lock",
+    "runtimeHint": "regionx",
+    "source": "known"
+  }
+}

@@ -1,0 +1,4 @@
+{
+  "polkadot:3338": ["wss://peaq.api.onfinality.io/public-ws", "wss://mpfn1.peaq.network"],
+  "kusama:2281": ["wss://kreivo.io", "wss://kreivo.kippu.rocks"]
+}
