@@ -2,6 +2,8 @@
 
 A dashboard of every live Polkadot and Kusama chain and the XCM version it speaks, for planning the removal of XCM v3 in polkadot-sdk **stable2612**.
 
+**Live dashboard: <https://franciscoaguirre.github.io/xcm-versions-dashboard/>**
+
 The main risk is a chain whose highest XCM version is v3 or lower: once v3 is removed, it can't exchange XCM with anyone. The dashboard puts those chains first and shows what each team needs to know: what their runtime can encode, what their peers have recorded for them, and which polkadot-sdk release their source builds against.
 
 ## Migration guides
