@@ -66,6 +66,30 @@ describe('aggregate', () => {
     expect(report.staleRecords.map((item) => item.peerKey)).toEqual(['polkadot:2000']);
   });
 
+  it('marks a chain whose fallback version is v3 or lower as holds-stale-records', () => {
+    const reports = aggregate(chains, [snapshot('polkadot:2000', { safeVersion: 2 })]);
+    const report = reports.find((item) => item.chain.key === 'polkadot:2000')!;
+    expect(report.status).toBe('holds-stale-records');
+    expect(report.reason).toBe('Fallback version (SafeXcmVersion) is v2');
+  });
+
+  it('names both a low fallback version and stale records in the reason', () => {
+    const reports = aggregate(chains, [
+      snapshot('polkadot:1000', { safeVersion: 3, supported: [record('polkadot:2000', 3)] }),
+      snapshot('polkadot:2000'),
+    ]);
+    const report = reports.find((item) => item.chain.key === 'polkadot:1000')!;
+    expect(report.status).toBe('holds-stale-records');
+    expect(report.reason).toBe(
+      'Records 1 upgraded peer(s) at v3 or lower; fallback version (SafeXcmVersion) is v3',
+    );
+  });
+
+  it('does not flag a fallback version of v4 or later', () => {
+    const reports = aggregate(chains, [snapshot('polkadot:2000', { safeVersion: 4 })]);
+    expect(statusOf(reports, 'polkadot:2000')).toBe('ready');
+  });
+
   it('marks a fully upgraded chain as ready', () => {
     const reports = aggregate(chains, [
       snapshot('polkadot:relay', { supported: [record('polkadot:1000', 5)] }),

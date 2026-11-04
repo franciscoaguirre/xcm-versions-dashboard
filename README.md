@@ -49,12 +49,16 @@ Everything is read live from public RPC endpoints in the browser. A full check o
 |---|---|---|
 | Blocker | Speaks XCM v3 or lower: its metadata or advertised version is ≤ 3 | That chain's team |
 | Recorded at v3 | Upgraded, but some peer's `SupportedVersion` still holds it at v3 | The peers listed in the expanded row, or re-trigger version discovery |
-| Holds v3 records | Its own `SupportedVersion` holds an upgraded peer at v3 | That chain's team |
+| Holds v3 records | Its own `SupportedVersion` holds an upgraded peer at v3, or its fallback `SafeXcmVersion` is v3 or lower | That chain's team |
 | Unreachable | No working public RPC. If every peer record says ≤ 3, it is shown as a Blocker instead | Find an RPC (see below) |
 
 **Action items.** Expanding a chain shows what its team needs to do, most urgent first: upgrade a runtime that speaks only v3 or lower, fix its own stale records and fallback version, ask peers to refresh their records of it, or publish a working RPC. Each item links to the relevant guide.
 
-**Records to fix.** Below the chain table, the dashboard lists every setting that would still make a chain send v3 or lower: records holding an upgraded peer at v3, and `SafeXcmVersion` fallbacks of v3 or lower. Each row gives the governance call that fixes it and the arguments to pass: `forceXcmVersion` sets a stale record to the version the peer speaks, and `forceDefaultXcmVersion` raises the fallback version. The [guide](docs/fixing-xcm-version-records.md) explains how to write and batch the calls.
+**Records to fix.** Expanding a chain also lists its settings that would still make it send v3 or lower: records holding an upgraded peer at v3, and a `SafeXcmVersion` fallback of v3 or lower. Each row gives the call that fixes it and the arguments to pass: `forceXcmVersion` sets a stale record to the version the peer speaks, and `forceDefaultXcmVersion` raises the fallback version. The [guide](docs/fixing-xcm-version-records.md) explains how to write and batch the calls. Records at v3 or lower that no call should change are listed under *Left as is*, each with the reason: the peer only speaks v3, its version is unknown, or it stopped producing blocks.
+
+**Chain pages.** Each chain also has its own page at `?chain=<relay>:<paraId>` (or `?chain=<relay>:relay`), opened from the link icon next to its name, to send a team just their chain. It still reads every chain first, since what peers record for it lives in their storage.
+
+**Governance calls.** Below a chain's records, **Prepare call data** builds the referendum that applies them: encoded against the live runtime, with its preimage hash, a polkadot.js apps decode link, and a dry run as Root. The relay chain and system chains (para IDs below 2000) share one referendum per relay, submitted on Asset Hub, which sends each system chain its fixes as a Superuser `Transact`; expanding any of them, or Asset Hub, shows that shared proposal. Every other chain gets one call. `pnpm governance-calls` does the same for every chain from Node and writes every proposal to `exports/governance/`; it exits non-zero if a proposal can't be prepared or fails its dry run.
 
 Collection uses plain request/response legacy RPC calls (`state_getKeysPaged`, `state_queryStorageAt` and so on), decoded with PAPI's metadata-driven codecs. It deliberately avoids subscriptions: some legacy parachain nodes never push finalized-head notifications. Nodes that report genesis as finalized (unsynced) are skipped in favour of the next endpoint.
 

@@ -57,7 +57,7 @@ export const actionItems = (
         `It records ${listNames(recordFixes.map((fix) => fix.peerKey), nameOf)} at v${REMOVED_VERSION} or lower, ` +
         `although ${one ? 'it speaks' : 'they speak'} v${REMOVED_VERSION + 1} or later. After ${TARGET_RELEASE}, ` +
         `messages to ${one ? 'it' : 'them'} would fail. Set ${one ? 'the record' : 'each record'} with ` +
-        `${recordFixes[0].call}; the arguments are listed under Records to fix.`,
+        `${recordFixes[0].call}; the arguments and the governance call are under Records to fix below.`,
       guide: { slug: 'fixing-xcm-version-records', anchor: 'the-fix' },
     });
   }
@@ -83,7 +83,7 @@ export const actionItems = (
           `${listNames(holders.map((record) => record.holderKey), nameOf)} still ` +
           `${holders.length === 1 ? 'records' : 'record'} it at v${REMOVED_VERSION} or lower, so after ` +
           `${TARGET_RELEASE} their messages to it would fail. The fix is a governance call on their side, listed ` +
-          'under Records to fix.',
+          'in their own rows.',
         guide: { slug: 'fixing-xcm-version-records' },
       });
     }

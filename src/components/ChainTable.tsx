@@ -1,10 +1,12 @@
-import { ArrowDown, ArrowUp, ChevronDown, ChevronRight } from 'lucide-react';
+import { ArrowDown, ArrowUp, ChevronDown, ChevronRight, Link } from 'lucide-react';
 import { Fragment, useState } from 'react';
 import { REMOVED_VERSION } from '../lib/aggregate';
-import type { Fix } from '../lib/fixes';
+import { chainHref } from '../lib/chainLink';
+import type { Fix, KeptRecord } from '../lib/fixes';
 import { STATUS_PRIORITY, type Row } from '../lib/rows';
 import { TARGET_RELEASE } from '../lib/sdk';
 import { ChainDetail } from './ChainDetail';
+import type { Governance } from './GovernanceCall';
 import { StatusBadge } from './StatusBadge';
 
 type SortKey = 'status' | 'chain' | 'version' | 'peers' | 'sdk';
@@ -86,7 +88,7 @@ const SdkCell = ({ row }: { row: Row }) => {
   );
 };
 
-const ContactCell = ({ row }: { row: Row }) => (
+export const ContactCell = ({ row }: { row: Row }) => (
   <div className="text-sm">
     {row.contact?.team && <p className="text-primary">{row.contact.team}</p>}
     {row.contact?.contact && <p className="text-secondary">{row.contact.contact}</p>}
@@ -107,10 +109,12 @@ const ContactCell = ({ row }: { row: Row }) => (
 interface ChainTableProps {
   rows: Row[];
   fixes: Fix[];
+  kept: KeptRecord[];
+  governance: Governance;
   nameOf: (key: string | null) => string;
 }
 
-export const ChainTable = ({ rows, fixes, nameOf }: ChainTableProps) => {
+export const ChainTable = ({ rows, fixes, kept, governance, nameOf }: ChainTableProps) => {
   const [sort, setSort] = useState<{ key: SortKey; ascending: boolean }>({ key: 'status', ascending: true });
   const [expanded, setExpanded] = useState<Set<string>>(new Set());
 
@@ -187,7 +191,20 @@ export const ChainTable = ({ rows, fixes, nameOf }: ChainTableProps) => {
                     </button>
                   </td>
                   <td className="px-4 py-3">
-                    <p className="font-medium text-primary">{row.chain.name}</p>
+                    <p className="font-medium text-primary flex items-center gap-1.5">
+                      {row.chain.name}
+                      <a
+                        className="text-tertiary hover:text-secondary transition-colors"
+                        href={chainHref(row.chain.key)}
+                        target="_blank"
+                        rel="noopener"
+                        title="Link to this chain's page"
+                        aria-label={`Open ${row.chain.name} on its own page`}
+                        onClick={(event) => event.stopPropagation()}
+                      >
+                        <Link className="w-3.5 h-3.5" aria-hidden />
+                      </a>
+                    </p>
                     <p className="text-xs text-tertiary">
                       {row.chain.relay[0].toUpperCase() + row.chain.relay.slice(1)}
                       {row.chain.paraId !== null && ` · ${row.chain.paraId}`}
@@ -214,7 +231,7 @@ export const ChainTable = ({ rows, fixes, nameOf }: ChainTableProps) => {
                 {isOpen && (
                   <tr className="border-b border-divider">
                     <td colSpan={COLUMNS.length + 1} className="p-0">
-                      <ChainDetail row={row} fixes={fixes} nameOf={nameOf} />
+                      <ChainDetail row={row} fixes={fixes} kept={kept} governance={governance} nameOf={nameOf} />
                     </td>
                   </tr>
                 )}

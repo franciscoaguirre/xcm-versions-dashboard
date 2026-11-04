@@ -2,7 +2,7 @@
 
 polkadot-sdk **stable2612** removes XCM v3. A chain on stable2612 can no longer encode a message as v3. So any setting that makes it pick v3 (or v2) for a destination stops that message from being sent, even when the destination speaks v5.
 
-This guide is for teams whose chain shows up in the **Records to fix** section of the dashboard. It explains where a chain gets its version settings, and the governance calls that fix them.
+This guide is for teams whose chain has **Records to fix** when you expand it on the dashboard. It explains where a chain gets its version settings, and the governance calls that fix them.
 
 ## How a chain picks the XCM version for a message
 
@@ -24,7 +24,7 @@ Set each stale record directly, in a governance call from the chain's `AdminOrig
 | A record holds a peer at v3 or lower, but the peer speaks v4 or later | `forceXcmVersion(location, version)`, with the version the peer speaks |
 | `SafeXcmVersion` is v3 or lower | `forceDefaultXcmVersion(Some(4))` |
 
-The dashboard's *Records to fix* table lists both calls for every chain, with the arguments ready to paste. The pallet is called `xcmPallet` on relay chains and `polkadotXcm` on most parachains.
+Expand a chain on the dashboard: its *Records to fix* table lists both calls, with the arguments ready to paste. The pallet is called `xcmPallet` on relay chains and `polkadotXcm` on most parachains.
 
 ### Why the fallback should be 4
 
@@ -60,7 +60,7 @@ api.tx.polkadotXcm.forceXcmVersion(sibling, 5);
 api.tx.polkadotXcm.forceDefaultXcmVersion(4);
 ```
 
-With PAPI, the type names come from your chain's generated descriptors and can differ slightly between chains. On a relay chain the pallet is `XcmPallet` (PAPI) or `xcmPallet` (PJS). The *Records to fix* table on the dashboard gives each location in the PJS format, which is also what the polkadot.js apps extrinsic form accepts.
+With PAPI, the type names come from your chain's generated descriptors and can differ slightly between chains. On a relay chain the pallet is `XcmPallet` (PAPI) or `xcmPallet` (PJS). The dashboard's *Records to fix* tables give each location in the PJS format, which is also what the polkadot.js apps extrinsic form accepts.
 
 ### Batching
 
@@ -96,6 +96,26 @@ const batch = api.tx.utility.batchAll([
 // The call data to note as a preimage and submit to governance
 const callData = batch.method.toHex();
 ```
+
+## Ready-made calls
+
+Under each chain's *Records to fix*, **Prepare call data** turns its fixes into call data ready to note as a preimage; `pnpm governance-calls` in this repository does it for every chain at once. Each call is encoded against the chain's live metadata and dry-run as Root before you see it.
+
+- **Your own chain**: one call, or a `utility.batchAll` of every fix, for your chain's governance.
+- **The relay chain and system chains** (para IDs below 2000): one referendum per relay, on Asset Hub, where governance lives since the Asset Hub migration. It applies Asset Hub's own fixes first, then sends each other system chain its fixes:
+
+```text
+utility.batchAll([
+  polkadotXcm.forceXcmVersion(...),            // Asset Hub's own fixes
+  polkadotXcm.send(dest: relay or sibling, V5 [
+    UnpaidExecution { weight_limit: Unlimited },
+    Transact { origin_kind: Superuser, fallback_max_weight, call: <that chain's batch> },
+  ]),
+  ...one send per system chain
+])
+```
+
+System chains accept Superuser from Asset Hub and execute its messages for free. `fallback_max_weight` is twice the call's measured weight, and only matters if the message has to be downgraded to v4. Asset Hub's fixes come first, so the sends already use its corrected records. The dry run executes the whole batch on Asset Hub, then each forwarded message on its destination, and checks that every record was set.
 
 ## Checking your chain's state
 

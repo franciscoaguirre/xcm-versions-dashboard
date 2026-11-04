@@ -1,5 +1,5 @@
 import { getDynamicBuilder, getLookupFn } from '@polkadot-api/metadata-builders';
-import { decAnyMetadata, unifyMetadata } from '@polkadot-api/substrate-bindings';
+import { Binary, Bytes, Option, decAnyMetadata, u32, unifyMetadata } from '@polkadot-api/substrate-bindings';
 import { resolveLocation } from './location';
 import { latestPerLocation } from './records';
 import { connectAny, type RpcClient } from './rpc';
@@ -10,10 +10,10 @@ export const CHAIN_TIMEOUT_MS = 30_000;
 const KEYS_PAGE_SIZE = 1000;
 const VALUES_CHUNK_SIZE = 100;
 
-type Metadata = ReturnType<typeof unifyMetadata>;
-type Builder = ReturnType<typeof getDynamicBuilder>;
+export type Metadata = ReturnType<typeof unifyMetadata>;
+export type Builder = ReturnType<typeof getDynamicBuilder>;
 
-const withTimeout = <T>(promise: Promise<T>, milliseconds: number, label: string) =>
+export const withTimeout = <T>(promise: Promise<T>, milliseconds: number, label: string) =>
   new Promise<T>((resolve, reject) => {
     const timer = setTimeout(() => reject(new Error(`${label} timed out after ${milliseconds / 1000}s`)), milliseconds);
     promise.then(
@@ -28,14 +28,14 @@ const withTimeout = <T>(promise: Promise<T>, milliseconds: number, label: string
     );
   });
 
-const findXcmPallet = (metadata: Metadata) =>
+export const findXcmPallet = (metadata: Metadata) =>
   metadata.pallets.find((pallet) => {
     const names = pallet.storage?.items.map((item) => item.name) ?? [];
     return names.includes('SupportedVersion') && names.includes('VersionNotifyTargets');
   });
 
 /** Highest `V<n>` variant across every `VersionedXcm` type in the metadata. */
-const maxVersionedXcm = (metadata: Metadata): number | undefined => {
+export const maxVersionedXcm = (metadata: Metadata): number | undefined => {
   const versions = metadata.lookup
     .filter((type) => type.path.at(-1) === 'VersionedXcm' && type.def.tag === 'variant')
     .flatMap((type) => (type.def.tag === 'variant' ? type.def.value.map((variant) => variant.name) : []))
@@ -48,20 +48,59 @@ const maxVersionedXcm = (metadata: Metadata): number | undefined => {
 export const websocketEndpoints = (chain: ChainInfo) =>
   chain.providers.filter((url) => url.startsWith('wss://'));
 
-interface ChainReader {
+export interface ChainReader {
   rpc: RpcClient;
   at: string;
   metadata: Metadata;
+  lookup: ReturnType<typeof getLookupFn>;
   builder: Builder;
 }
 
-const openReader = async (rpc: RpcClient): Promise<ChainReader> => {
+const versionedMetadata = Option(Bytes());
+
+/**
+ * The runtime's metadata at `at`. `state_getMetadata` returns V14, which lists no runtime APIs,
+ * so callers that need them ask for the newest version the runtime offers.
+ */
+const fetchMetadata = async (rpc: RpcClient, at: string, withRuntimeApis: boolean) => {
+  if (withRuntimeApis) {
+    for (const version of [16, 15]) {
+      try {
+        const raw = await rpc.request<string>('state_call', [
+          'Metadata_metadata_at_version',
+          Binary.toHex(u32.enc(version)),
+          at,
+        ]);
+        const opaque = versionedMetadata.dec(raw);
+        if (opaque) return unifyMetadata(decAnyMetadata(opaque));
+      } catch {
+        // Older runtime without this version (or without the API at all): try the next one.
+      }
+    }
+  }
+  return unifyMetadata(decAnyMetadata(await rpc.request<string>('state_getMetadata', [at])));
+};
+
+/** Pass `withRuntimeApis` to load V15+ metadata, needed by `callRuntimeApi`. */
+export const openReader = async (rpc: RpcClient, withRuntimeApis = false): Promise<ChainReader> => {
   const at = await rpc.request<string>('chain_getFinalizedHead');
   const header = await rpc.request<{ number: string }>('chain_getHeader', [at]);
   // An unsynced node reports genesis as finalized, and its genesis state has no XCM pallet.
   if (Number.parseInt(header.number, 16) === 0) throw new Error(`${rpc.endpoint}: node is not synced`);
-  const metadata = unifyMetadata(decAnyMetadata(await rpc.request<string>('state_getMetadata', [at])));
-  return { rpc, at, metadata, builder: getDynamicBuilder(getLookupFn(metadata)) };
+  const metadata = await fetchMetadata(rpc, at, withRuntimeApis);
+  const lookup = getLookupFn(metadata);
+  return { rpc, at, metadata, lookup, builder: getDynamicBuilder(lookup) };
+};
+
+/** Whether the runtime exposes `api.method`. */
+export const hasRuntimeApi = (reader: ChainReader, api: string, method: string) =>
+  reader.metadata.apis.some((entry) => entry.name === api && entry.methods.some((item) => item.name === method));
+
+/** Call a runtime API at the reader's block, e.g. `DryRunApi`, `dry_run_call`. */
+export const callRuntimeApi = async (reader: ChainReader, api: string, method: string, ...args: unknown[]) => {
+  const codecs = reader.builder.buildRuntimeCall(api, method);
+  const raw = await reader.rpc.request<string>('state_call', [`${api}_${method}`, Binary.toHex(codecs.args.enc(args)), reader.at]);
+  return codecs.value.dec(raw);
 };
 
 const readValue = async (reader: ChainReader, pallet: string, entry: string, ...args: unknown[]) => {

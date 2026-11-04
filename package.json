@@ -18,7 +18,8 @@
     "fetch-sdk": "tsx scripts/fetch-sdk-versions.ts",
     "snapshot": "tsx scripts/snapshot.ts",
     "verify-endpoint": "tsx scripts/verify-endpoint.ts",
-    "export-dashboard": "tsx scripts/export-dashboard.ts"
+    "export-dashboard": "tsx scripts/export-dashboard.ts",
+    "governance-calls": "tsx scripts/governance-calls.ts"
   },
   "dependencies": {
     "@polkadot-api/metadata-builders": "0.15.2",

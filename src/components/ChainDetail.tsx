@@ -1,13 +1,17 @@
 import type { ReactNode } from 'react';
 import { actionItems } from '../lib/actions';
 import { REMOVED_VERSION } from '../lib/aggregate';
-import type { Fix } from '../lib/fixes';
+import type { Fix, KeptRecord } from '../lib/fixes';
 import type { Row } from '../lib/rows';
+import { GovernanceCall, planFor, type Governance } from './GovernanceCall';
 import { GuideAnchor } from './GuideAnchor';
 
 interface ChainDetailProps {
   row: Row;
   fixes: Fix[];
+  /** Records at v3 or lower that no call changes, across all chains. */
+  kept: KeptRecord[];
+  governance: Governance;
   nameOf: (key: string | null) => string;
 }
 
@@ -27,9 +31,73 @@ const Fact = ({ label, value }: { label: string; value: ReactNode }) => (
 
 const versionClass = (version: number) => (version <= REMOVED_VERSION ? 'text-error font-semibold' : 'text-primary');
 
-export const ChainDetail = ({ row, fixes, nameOf }: ChainDetailProps) => {
+/** This chain's own version settings that still point at v3 or lower, with the call that fixes each. */
+const FixesTable = ({ fixes, nameOf }: { fixes: Fix[]; nameOf: ChainDetailProps['nameOf'] }) => (
+  <div className="overflow-x-auto">
+    <table className="w-full text-sm">
+      <thead>
+        <tr className="border-b border-divider text-left text-secondary">
+          {['Peer', 'Recorded as', 'Set to', 'Call', 'Arguments'].map((label) => (
+            <th key={label} className="pr-4 py-2 font-medium whitespace-nowrap">
+              {label}
+            </th>
+          ))}
+        </tr>
+      </thead>
+      <tbody>
+        {fixes.map((fix) => (
+          <tr key={fix.peerKey ?? 'fallback'} className="border-b border-divider align-top">
+            <td className="pr-4 py-2 text-primary">{fix.peerKey ? nameOf(fix.peerKey) : 'Any destination without a record'}</td>
+            <td className="pr-4 py-2 text-error font-semibold">v{fix.recorded}</td>
+            <td className="pr-4 py-2 text-primary">v{fix.newVersion}</td>
+            <td className="pr-4 py-2 font-mono text-xs text-primary whitespace-nowrap">{fix.call}</td>
+            <td className="py-2 font-mono text-xs text-primary break-words select-all">{fix.argument}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+);
+
+/** Records at v3 or lower that the governance call deliberately leaves alone. */
+const KeptTable = ({ kept, nameOf }: { kept: KeptRecord[]; nameOf: ChainDetailProps['nameOf'] }) => (
+  <div className="overflow-x-auto">
+    <table className="w-full text-sm">
+      <thead>
+        <tr className="border-b border-divider text-left text-secondary">
+          {['Peer', 'Recorded as', 'Why it stays'].map((label) => (
+            <th key={label} className="pr-4 py-2 font-medium whitespace-nowrap">
+              {label}
+            </th>
+          ))}
+        </tr>
+      </thead>
+      <tbody>
+        {kept.map(({ record, retiredName, reason }) => (
+          <tr key={record.peerLabel} className="border-b border-divider align-top">
+            <td className="pr-4 py-2 text-primary whitespace-nowrap" title={record.peerLabel}>
+              {retiredName ?? (record.peerKey ? nameOf(record.peerKey) : record.peerLabel)}
+            </td>
+            <td className="pr-4 py-2 text-primary">v{record.version}</td>
+            <td className="py-2 text-secondary">{reason}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+);
+
+export const ChainDetail = ({ row, fixes, kept, governance, nameOf }: ChainDetailProps) => {
   const { snapshot, sdk } = row;
   const actions = actionItems(row, fixes, nameOf);
+  const own = fixes
+    .filter((fix) => fix.holderKey === row.chain.key)
+    .sort((a, b) => Number(a.kind === 'fallback-version') - Number(b.kind === 'fallback-version') || nameOf(a.peerKey).localeCompare(nameOf(b.peerKey)));
+  const ownKept = kept
+    .filter((item) => item.holderKey === row.chain.key)
+    .sort((a, b) => nameOf(a.record.peerKey ?? a.record.peerLabel).localeCompare(nameOf(b.record.peerKey ?? b.record.peerLabel), undefined, { numeric: true }));
+  // Asset Hub shows its relay's system proposal even with no fixes of its own, since it submits it.
+  const plan = planFor(governance.plans, row.chain.key);
   const lowRecords = row.recordedByPeers.filter((record) => record.version <= REMOVED_VERSION);
   const supported = [...(snapshot?.supported ?? [])].sort((a, b) => a.version - b.version);
 
@@ -66,6 +134,44 @@ export const ChainDetail = ({ row, fixes, nameOf }: ChainDetailProps) => {
           )}
         </Section>
       </div>
+
+      {(own.length > 0 || ownKept.length > 0 || plan) && (
+        <div className="md:col-span-3">
+          <Section title="Records to fix">
+            {own.length ? (
+              <>
+                <p className="text-sm text-secondary mb-2 max-w-4xl">
+                  Settings that still point at XCM v{REMOVED_VERSION} or lower. Once this chain runs stable2612 it can
+                  no longer encode v{REMOVED_VERSION}, so messages relying on them fail.{' '}
+                  <GuideAnchor link={{ slug: 'fixing-xcm-version-records' }}>Why, and how to fix them</GuideAnchor>.
+                </p>
+                <FixesTable fixes={own} nameOf={nameOf} />
+              </>
+            ) : (
+              <p className="text-sm text-secondary">None of its own.</p>
+            )}
+            {ownKept.length > 0 && (
+              <div className="border-t border-divider pt-3 mt-3">
+                <p className="text-sm font-medium text-primary">Left as is</p>
+                <p className="text-sm text-secondary mt-0.5 mb-2 max-w-4xl">
+                  Also at v{REMOVED_VERSION} or lower, but no call should change these: the peer can't receive anything
+                  newer, or no longer runs. If a peer upgrades, its record moves to the fixes above.
+                </p>
+                <KeptTable kept={ownKept} nameOf={nameOf} />
+              </div>
+            )}
+            {plan && (
+              <GovernanceCall
+                plan={plan}
+                chainKey={row.chain.key}
+                state={governance.states[plan.id] ?? { phase: 'idle' }}
+                onPrepare={() => governance.prepare(plan)}
+                nameOf={nameOf}
+              />
+            )}
+          </Section>
+        </div>
+      )}
 
       <Section title="Runtime">
         <Fact label="Status" value={row.reason} />

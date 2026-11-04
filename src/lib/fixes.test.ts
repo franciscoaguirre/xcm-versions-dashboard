@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { aggregate } from './aggregate';
-import { locationLiteral, recordsToFix } from './fixes';
+import { locationLiteral, parseLocationLabel, recordsLeftAsIs, recordsToFix } from './fixes';
 import type { ChainInfo, ChainSnapshot, VersionRecord } from './types';
 
 const chain = (key: string): ChainInfo => {
@@ -98,5 +98,45 @@ describe('recordsToFix', () => {
         argument: 'Some(4)',
       }),
     ]);
+  });
+});
+
+describe('parseLocationLabel', () => {
+  it('parses the relay, a sibling and a bridged chain', () => {
+    expect(parseLocationLabel('..')).toEqual({ parents: 1, junctions: [] });
+    expect(parseLocationLabel('../Parachain(1000)')).toEqual({ parents: 1, junctions: [{ Parachain: 1000 }] });
+    expect(parseLocationLabel('../../GlobalConsensus(Kusama)/Parachain(1000)')).toEqual({
+      parents: 2,
+      junctions: [{ GlobalConsensus: 'Kusama' }, { Parachain: 1000 }],
+    });
+  });
+});
+
+describe('recordsLeftAsIs', () => {
+  const keptFor = (snapshots: ChainSnapshot[]) => recordsLeftAsIs(aggregate(chains, snapshots));
+
+  it('keeps records of peers that speak v3, with the reason', () => {
+    const kept = keptFor([
+      snapshot('polkadot:1000', { supported: [record('polkadot:2001', '../Parachain(2001)', 3)] }),
+      snapshot('polkadot:2001', { maxInMetadata: 3 }),
+    ]);
+    expect(kept).toEqual([expect.objectContaining({ holderKey: 'polkadot:1000', reason: expect.stringMatching(/only speaks up to v3/) })]);
+  });
+
+  it('keeps records of chains that are no longer running', () => {
+    const kept = keptFor([snapshot('polkadot:1000', { supported: [record('polkadot:2040', '../Parachain(2040)', 3)] })]);
+    expect(kept[0].reason).toMatch(/no longer running/);
+    expect(kept[0].retiredName).toBe('Polkadex');
+  });
+
+  it('leaves out records that a fix covers, and records above v3', () => {
+    const kept = keptFor([
+      snapshot('polkadot:2000', {
+        supported: [record('polkadot:1000', '../Parachain(1000)', 3), record('polkadot:relay', '..', 5)],
+      }),
+      snapshot('polkadot:1000'),
+      snapshot('polkadot:relay'),
+    ]);
+    expect(kept).toEqual([]);
   });
 });

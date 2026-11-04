@@ -95,13 +95,20 @@ export const aggregate = (chains: ChainInfo[], snapshots: ChainSnapshot[]): Chai
         reason: `${lowPeerRecords.length} peer(s) still record it at v${REMOVED_VERSION} or lower`,
       };
     }
-    if (staleRecords.length) {
-      return {
-        ...base,
-        status: 'holds-stale-records',
-        reason: `Records ${staleRecords.length} upgraded peer(s) at v${REMOVED_VERSION} or lower`,
-      };
+    // Its own settings that would still make it send v3 or lower: the same ones recordsToFix fixes.
+    const lowFallback = snapshot.safeVersion !== undefined && snapshot.safeVersion <= REMOVED_VERSION;
+    if (staleRecords.length || lowFallback) {
+      const parts = [
+        staleRecords.length && `Records ${staleRecords.length} upgraded peer(s) at v${REMOVED_VERSION} or lower`,
+        lowFallback && `fallback version (SafeXcmVersion) is v${snapshot.safeVersion}`,
+      ].filter((part): part is string => Boolean(part));
+      const reason = parts.join('; ');
+      return { ...base, status: 'holds-stale-records', reason: reason[0].toUpperCase() + reason.slice(1) };
     }
-    return { ...base, status: 'ready', reason: 'Speaks v4+ and every record of it is v4+' };
+    return {
+      ...base,
+      status: 'ready',
+      reason: 'Speaks v4+, every record of it is v4+, and its fallback version is v4+ or unset',
+    };
   });
 };
