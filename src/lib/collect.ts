@@ -1,7 +1,7 @@
 import { getDynamicBuilder, getLookupFn } from '@polkadot-api/metadata-builders';
 import { Binary, Bytes, Option, decAnyMetadata, u32, unifyMetadata } from '@polkadot-api/substrate-bindings';
 import { resolveLocation } from './location';
-import { latestPerLocation } from './records';
+import { latestPerLocation, legacyKeyedEntries, undecodableLegacyEntry } from './records';
 import { connectAny, type RpcClient } from './rpc';
 import type { ChainInfo, ChainSnapshot, VersionRecord } from './types';
 
@@ -125,6 +125,8 @@ const readEntries = async (reader: ChainReader, pallet: string, entry: string) =
   }
 
   const entries: { keyArgs: any[]; value: any }[] = [];
+  // Keys the metadata can't decode, e.g. a location variant the runtime no longer has.
+  const undecodableKeys: string[] = [];
   for (let start = 0; start < keys.length; start += VALUES_CHUNK_SIZE) {
     const chunk = keys.slice(start, start + VALUES_CHUNK_SIZE);
     const [result] = await reader.rpc.request<{ changes: [string, string | null][] }[]>('state_queryStorageAt', [
@@ -132,10 +134,18 @@ const readEntries = async (reader: ChainReader, pallet: string, entry: string) =
       reader.at,
     ]);
     for (const [key, value] of result.changes) {
-      if (value !== null) entries.push({ keyArgs: storage.keys.dec(key), value: storage.value.dec(value) });
+      if (value === null) continue;
+      let keyArgs: any[];
+      try {
+        keyArgs = storage.keys.dec(key);
+      } catch {
+        undecodableKeys.push(key);
+        continue;
+      }
+      entries.push({ keyArgs, value: storage.value.dec(value) });
     }
   }
-  return entries;
+  return { entries, undecodableKeys };
 };
 
 export interface ParaActivity {
@@ -149,7 +159,7 @@ export const fetchParaActivity = async (relay: ChainInfo): Promise<ParaActivity[
   try {
     const query = async () => {
       const reader = await openReader(rpc);
-      const [current, contexts] = await Promise.all([
+      const [current, { entries: contexts }] = await Promise.all([
         readValue(reader, 'System', 'Number'),
         readEntries(reader, 'Paras', 'MostRecentContext'),
       ]);
@@ -185,10 +195,21 @@ const collect = async (chain: ChainInfo, rpc: RpcClient): Promise<ChainSnapshot>
     keyVersion,
   });
 
-  const [supportedEntries, targetEntries, safeVersion] = await Promise.all([
+  const [supportedVersion, versionNotifiers, versionNotifyTargets, safeVersion] = await Promise.all([
     readEntries(reader, pallet.name, 'SupportedVersion'),
+    readEntries(reader, pallet.name, 'VersionNotifiers'),
     readEntries(reader, pallet.name, 'VersionNotifyTargets'),
     readValue(reader, pallet.name, 'SafeXcmVersion'),
+  ]);
+  const legacyKeyed = (
+    [
+      ['SupportedVersion', supportedVersion],
+      ['VersionNotifiers', versionNotifiers],
+      ['VersionNotifyTargets', versionNotifyTargets],
+    ] as const
+  ).flatMap(([map, { entries, undecodableKeys }]) => [
+    ...legacyKeyedEntries(map, entries, context),
+    ...undecodableKeys.map((key) => undecodableLegacyEntry(map, key)),
   ]);
 
   return {
@@ -197,14 +218,15 @@ const collect = async (chain: ChainInfo, rpc: RpcClient): Promise<ChainSnapshot>
     palletName: pallet.name,
     safeVersion: safeVersion ?? undefined,
     supported: latestPerLocation(
-      supportedEntries.map(({ keyArgs, value }) => toRecord(keyArgs[0] as number, keyArgs[1], value as number)),
+      supportedVersion.entries.map(({ keyArgs, value }) => toRecord(keyArgs[0] as number, keyArgs[1], value as number)),
     ),
     // Value is (QueryId, max response weight, version advertised to that subscriber).
     advertised: latestPerLocation(
-      targetEntries.map(({ keyArgs, value }) =>
+      versionNotifyTargets.entries.map(({ keyArgs, value }) =>
         toRecord(keyArgs[0] as number, keyArgs[1], (value as [bigint, unknown, number])[2]),
       ),
     ),
+    legacyKeyed,
   };
 };
 

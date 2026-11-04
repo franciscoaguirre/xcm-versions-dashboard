@@ -3,6 +3,8 @@ import { actionItems } from '../lib/actions';
 import { REMOVED_VERSION } from '../lib/aggregate';
 import type { Fix, KeptRecord } from '../lib/fixes';
 import type { Row } from '../lib/rows';
+import { TARGET_RELEASE } from '../lib/sdk';
+import type { LegacyKeyedEntry } from '../lib/types';
 import { GovernanceCall, planFor, type Governance } from './GovernanceCall';
 import { GuideAnchor } from './GuideAnchor';
 
@@ -87,6 +89,35 @@ const KeptTable = ({ kept, nameOf }: { kept: KeptRecord[]; nameOf: ChainDetailPr
   </div>
 );
 
+/** Version-keyed storage entries still under a v3-or-lower key, which can't be decoded once v3 is removed. */
+const LegacyKeyedTable = ({ entries, nameOf }: { entries: LegacyKeyedEntry[]; nameOf: ChainDetailProps['nameOf'] }) => (
+  <div className="overflow-x-auto">
+    <table className="w-full text-sm">
+      <thead>
+        <tr className="border-b border-divider text-left text-secondary">
+          {['Map', 'Peer', 'Key version', 'Location'].map((label) => (
+            <th key={label} className="pr-4 py-2 font-medium whitespace-nowrap">
+              {label}
+            </th>
+          ))}
+        </tr>
+      </thead>
+      <tbody>
+        {entries.map((entry, index) => (
+          <tr key={`${entry.map}-${entry.keyVersion}-${entry.peerLabel}-${index}`} className="border-b border-divider align-top">
+            <td className="pr-4 py-2 font-mono text-xs text-primary whitespace-nowrap">{entry.map}</td>
+            <td className="pr-4 py-2 text-primary" title={entry.peerLabel}>
+              {entry.peerKey ? nameOf(entry.peerKey) : entry.peerLabel}
+            </td>
+            <td className="pr-4 py-2 text-primary">v{entry.keyVersion}</td>
+            <td className="py-2 text-primary">V{entry.locationVersion}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+);
+
 export const ChainDetail = ({ row, fixes, kept, governance, nameOf }: ChainDetailProps) => {
   const { snapshot, sdk } = row;
   const actions = actionItems(row, fixes, nameOf);
@@ -100,6 +131,9 @@ export const ChainDetail = ({ row, fixes, kept, governance, nameOf }: ChainDetai
   const plan = planFor(governance.plans, row.chain.key);
   const lowRecords = row.recordedByPeers.filter((record) => record.version <= REMOVED_VERSION);
   const supported = [...(snapshot?.supported ?? [])].sort((a, b) => a.version - b.version);
+  const legacyKeyed = [...(snapshot?.legacyKeyed ?? [])].sort(
+    (a, b) => a.map.localeCompare(b.map) || nameOf(a.peerKey ?? a.peerLabel).localeCompare(nameOf(b.peerKey ?? b.peerLabel), undefined, { numeric: true }),
+  );
 
   return (
     <div className="grid gap-4 md:grid-cols-3 p-4 bg-surface-nested">
@@ -274,6 +308,23 @@ export const ChainDetail = ({ row, fixes, kept, governance, nameOf }: ChainDetai
           )}
         </Section>
       </div>
+      {legacyKeyed.length > 0 && (
+        <div className="md:col-span-3">
+          <Section title={`Before upgrading to ${TARGET_RELEASE}: storage under v${REMOVED_VERSION} keys`}>
+            <p className="text-sm text-secondary mb-2 max-w-4xl">
+              Nothing to do until this chain plans that upgrade; the runtime reads these as usual until then. They are
+              entries of the XCM pallet's version maps stored under a v{REMOVED_VERSION} key, which {TARGET_RELEASE} can
+              no longer decode, so run <code className="font-mono text-xs">MigrateToLatestXcmVersion</code> in an
+              upgrade on an earlier release first.{' '}
+              <GuideAnchor link={{ slug: 'fixing-xcm-version-records', anchor: 'entries-stored-under-a-v3-key' }}>
+                How to check and migrate them
+              </GuideAnchor>
+              .
+            </p>
+            <LegacyKeyedTable entries={legacyKeyed} nameOf={nameOf} />
+          </Section>
+        </div>
+      )}
     </div>
   );
 };

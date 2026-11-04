@@ -89,4 +89,23 @@ describe('actionItems', () => {
     expect(items).toHaveLength(1);
     expect(items[0].title).toMatch(/RPC/);
   });
+
+  it('tells a chain holding v3-keyed entries to migrate them before stable2612, last and without urgency', () => {
+    const legacyKeyed = [
+      { map: 'SupportedVersion' as const, peerKey: 'polkadot:1000', peerLabel: '../Parachain(1000)', keyVersion: 3, locationVersion: 3 },
+      { map: 'SupportedVersion' as const, peerKey: 'polkadot:relay', peerLabel: '..', keyVersion: 3, locationVersion: 3 },
+      { map: 'VersionNotifyTargets' as const, peerKey: 'polkadot:1000', peerLabel: '../Parachain(1000)', keyVersion: 3, locationVersion: 3 },
+    ];
+    const items = actionsOf('polkadot:2000', [snapshot('polkadot:2000', { legacyKeyed })]);
+    const item = items.at(-1);
+    expect(item?.title).toBe('Before upgrading to stable2612, migrate 3 XCM storage entries off v3 keys');
+    expect(item?.detail).toMatch(/^Nothing to do until this chain plans that upgrade\. 2 in SupportedVersion, 1 in VersionNotifyTargets are stored/);
+    expect(item?.detail).toContain('MigrateToLatestXcmVersion');
+    expect(item?.guide).toEqual({ slug: 'fixing-xcm-version-records', anchor: 'entries-stored-under-a-v3-key' });
+  });
+
+  it('asks nothing about storage keys when no entry is under a v3 key', () => {
+    const items = actionsOf('polkadot:2000', [snapshot('polkadot:2000', { legacyKeyed: [] })]);
+    expect(items.some((action) => action.title.includes('v3 keys'))).toBe(false);
+  });
 });

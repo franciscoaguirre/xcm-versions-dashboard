@@ -63,6 +63,7 @@ const chainRows = rows.map((row) => {
     peers_recording: peerVersions.length,
     peers_at_v3_or_lower: peerVersions.filter((version) => version <= REMOVED_VERSION).length,
     stale_records_held: row.staleRecords.length,
+    v3_keyed_entries: row.snapshot?.legacyKeyed?.length ?? 0,
     sdk_release: row.sdk?.release ?? '',
     releases_behind_stable2612: row.releasesBehind,
     sdk_repo: row.sdk?.repo ?? '',

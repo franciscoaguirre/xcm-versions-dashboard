@@ -27,6 +27,23 @@ export interface VersionRecord {
   keyVersion?: number;
 }
 
+/** The XCM pallet's storage maps keyed by `(XcmVersion, VersionedLocation)`. */
+export type VersionKeyedMap = 'SupportedVersion' | 'VersionNotifiers' | 'VersionNotifyTargets';
+
+/**
+ * An entry stored under a v3-or-lower key: either the key's version prefix or the
+ * `VersionedLocation` variant. Once v3 is removed it can't be decoded or migrated.
+ */
+export interface LegacyKeyedEntry {
+  map: VersionKeyedMap;
+  peerKey: ChainKey | null;
+  peerLabel: string;
+  /** The version prefix of the storage key. */
+  keyVersion: number;
+  /** The `VersionedLocation` variant, e.g. 3 for `V3`. */
+  locationVersion: number;
+}
+
 export type SnapshotState = 'ok' | 'unreachable' | 'no-xcm-pallet';
 
 export interface ChainSnapshot {
@@ -44,6 +61,8 @@ export interface ChainSnapshot {
   advertised: VersionRecord[];
   /** From `SupportedVersion`: the version this chain believes each peer supports. */
   supported: VersionRecord[];
+  /** Entries of the version-keyed maps still stored under a v3-or-lower key. */
+  legacyKeyed?: LegacyKeyedEntry[];
 }
 
 export type ChainStatus =

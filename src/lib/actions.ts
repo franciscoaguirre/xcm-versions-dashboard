@@ -10,7 +10,7 @@ export interface ActionItem {
   guide?: GuideLink;
 }
 
-const plural = (count: number, word: string) => `${count} ${word}${count === 1 ? '' : 's'}`;
+const plural = (count: number, word: string, pluralWord = `${word}s`) => `${count} ${count === 1 ? word : pluralWord}`;
 
 const listNames = (keys: (ChainKey | null)[], nameOf: (key: ChainKey | null) => string) => {
   const names = keys.map(nameOf);
@@ -87,6 +87,24 @@ export const actionItems = (
         guide: { slug: 'fixing-xcm-version-records' },
       });
     }
+  }
+
+  // Not urgent: the runtime reads these as usual until it moves to the target release. Listed last.
+  const legacyKeyed = snapshot?.legacyKeyed ?? [];
+  if (legacyKeyed.length) {
+    const countByMap = new Map<string, number>();
+    for (const entry of legacyKeyed) countByMap.set(entry.map, (countByMap.get(entry.map) ?? 0) + 1);
+    const perMap = [...countByMap].map(([map, count]) => `${count} in ${map}`);
+    const one = legacyKeyed.length === 1;
+    items.push({
+      title: `Before upgrading to ${TARGET_RELEASE}, migrate ${plural(legacyKeyed.length, 'XCM storage entry', 'XCM storage entries')} off v${REMOVED_VERSION} keys`,
+      detail:
+        `Nothing to do until this chain plans that upgrade. ${perMap.join(', ')} ${one ? 'is' : 'are'} stored ` +
+        `under a v${REMOVED_VERSION} key, which ${TARGET_RELEASE} can no longer decode, so ` +
+        `${one ? 'it' : 'they'} can't be migrated after the upgrade. Include ` +
+        'pallet_xcm::migration::MigrateToLatestXcmVersion<Runtime> in a runtime upgrade on an earlier release.',
+      guide: { slug: 'fixing-xcm-version-records', anchor: 'entries-stored-under-a-v3-key' },
+    });
   }
 
   return items;

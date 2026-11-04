@@ -147,7 +147,7 @@ Check every storage item, event and runtime API type that holds an XCM type. The
 
 - **Locations encode identically in v3, v4 and v5.** For example, `{ parents: 1, interior: X2(Parachain(1000), GeneralIndex(1984)) }` is `0x010200a10f05011f` in all three. Storage of a bare `MultiLocation` can be re-typed as `Location` without migrating the data.
 - **Asset IDs don't.** A v3 `AssetId` starts with a variant byte (`0x00` for `Concrete`) that v4's `AssetId` doesn't have. The same goes for anything containing one: `MultiAsset`, `MultiAssets`, filters. Storage holding these needs a migration that decodes v3 and re-encodes v4. A common example is an asset registry keyed by v3 `AssetId` or `MultiAsset`.
-- **Versioned types** (`VersionedLocation`, `VersionedAssets`, `VersionedXcm`) store a version byte (3, 4 or 5) in front. Entries stored as `V3` must be rewritten as `V4` or `V5` before the v3 variant disappears, or they will no longer decode.
+- **Versioned types** (`VersionedLocation`, `VersionedAssets`, `VersionedXcm`) store a version byte (3, 4 or 5) in front. Entries stored as `V3` must be rewritten as `V4` or `V5` before the v3 variant disappears, or they will no longer decode. This includes storage *keys*: pallet-xcm's own version maps need `MigrateToLatestXcmVersion` (see [Entries stored under a v3 key](fixing-xcm-version-records.md#entries-stored-under-a-v3-key)).
 
 ## Clients
 
